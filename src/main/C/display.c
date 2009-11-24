@@ -3,7 +3,7 @@
 #include <string.h>
 #include "shapefil.h"
 #include "neighbors.h"
-#define SVG_SCALE 10000
+#define SVG_SCALE 5000
 /*
   Code to display Census shapefiles.
   Copyright (C) <2009>  <Joshua Justice>
@@ -72,13 +72,17 @@ int polyCentroid(double x[], double y[], int n,
   return 2;
 } //end Graphics Gems code
 
-void colorArrange(int* array, int n, int nDists, char* distFile){
+void colorArrange(int* array, int n, int nDists, char *distFile){
   unsigned int distarray_size = nDists+1;
   unsigned int *distArray = malloc((nDists+1)*sizeof(unsigned int));
   FILE *fp;
   int blockno;
   int distno;
   fp = fopen(distFile, "r");
+  if(fp==NULL){
+    printf("Error- could not open district file\n");
+    printf("Filename:  %s\n", distFile);	
+  }
   //Sumanth - Debug
   unsigned int min=0xffffff;
   unsigned int max=0x000000;
@@ -93,9 +97,8 @@ printf("current=%x  ", current);
     distArray[i]=current;
     current=current+diff;
   }
-  int count=0;
   while(fscanf(fp, "%i %i", &blockno, &distno) != EOF){
-    array[count]=distArray[distno];
+    array[blockno]=distArray[distno];
     printf("%xi   ",distArray[distno]);
   }
   free(distArray);
@@ -199,9 +202,9 @@ int main(){
   //For josh
   //char sf_name[] = "/home/josh/Desktop/FultonCoData/Fultoncombinednd.shp";
   //for sumanth
-  char sf_name[] = "/home/sumanth/Documents/eDemocracy/Files/Fultoncombinednd.shp";
+  //char sf_name[] = "/home/sumanth/Documents/eDemocracy/Files/Fultoncombinednd.shp";
   //for alice
-  //char sf_name[]= "/home/altheacynara/Documents/fultonData/Fultoncombinednd.shp";
+  char sf_name[]= "/home/altheacynara/Documents/fultonData/Fultoncombinednd.shp";
   //Eventually, this won't be hardcoded
 
   SHPHandle handle = SHPOpen(sf_name, "rb");
@@ -210,14 +213,19 @@ int main(){
   int fn_len = strlen(sf_name);
   char svg_filename[fn_len];
   char gal_filename[fn_len];
+  char dst_filename[fn_len];
   FILE *svg;
   strcpy(svg_filename, sf_name);
   strcpy(gal_filename, sf_name);
+  strcpy(dst_filename, sf_name);
   svg_filename[fn_len-2] = 'v';
   svg_filename[fn_len-1] = 'g';
   gal_filename[fn_len-3] = 'G';
   gal_filename[fn_len-2] = 'A';
   gal_filename[fn_len-1] = 'L';
+  dst_filename[fn_len-3] = 'd';
+  dst_filename[fn_len-2] = 's';
+  dst_filename[fn_len-1] = 't';
   //I know, the above isn't really robust enough.
   //Should be improved upon when the file name is no longer hardcoded
 
@@ -243,9 +251,10 @@ int main(){
   svg_header(svg);
   printf("SVG header printed.\n");
   //Call colorArrange:
-  int ndists=3;
-  int *colorArray = malloc(entityCount*sizeof(int));;
-  colorArrange(colorArray,entityCount,ndists, "/home/sumanth/Documents/eDemocracy/Files/Fultoncombinednd.shp");
+  int ndists=5;
+  int *colorArray = malloc(entityCount*sizeof(int));
+  printf("The filename is %s\n compared to %s\n", dst_filename, gal_filename);
+  colorArrange(colorArray,entityCount,ndists, dst_filename);
 
   //write individual polygons
   for(i=0; i<entityCount; i++){
