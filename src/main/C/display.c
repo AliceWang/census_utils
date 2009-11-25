@@ -3,7 +3,7 @@
 #include <string.h>
 #include "shapefil.h"
 #include "neighbors.h"
-#define SVG_SCALE 5000
+#define SVG_SCALE 100
 /*
   Code to display Census shapefiles.
   Copyright (C) <2009>  <Joshua Justice>
@@ -36,8 +36,6 @@
   with Gems - authors, editors, publishers, or webmasters - are to be held responsible. 
   Basically, don't be a jerk, and remember that anything free comes with no guarantee. 
 */
-
-
 
 /*  
     polyCentroid: Calculates the centroid (xCentroid, yCentroid) and area
@@ -106,8 +104,8 @@ void svg_header(FILE *svg){
   fputs("<svg\n\txmlns:svg=\"http://www.w3.org/2000/svg\"\n", svg);
   fputs("\txmlns=\"http://www.w3.org/2000/svg\"\n", svg);
   fputs("\tversion=\"1.0\"\n", svg);
-  fputs("\twidth=\"360000\"\n", svg);
-  fputs("\theight=\"180000\"\n", svg);
+  fprintf(svg, "\twidth=\"%d\"\n", 360*SVG_SCALE);
+  fprintf("\theight=\"%d\"\n", 180*SVG_SCALE);
   fputs("\tid=\"svg2\">\n", svg);
   fputs("\t<defs\n\t\tid=\"defs1\" />\n", svg);
   fputs("\t<g\n\t\tid=\"layer1\">\n", svg);
@@ -257,11 +255,11 @@ int main(){
   }
   printf("Polygons all printed.\n");
 
+
   if(use_gal){
     FILE *gal;
     int block, num_neigh, nblocks, temp_neigh;
     int count=0;
-    printf("The name of the file is: %s\n", gal_filename);
     gal= fopen(gal_filename, "r");
     if(gal==NULL){
       printf("Error: Could not open GAL file.\n");
@@ -320,16 +318,17 @@ int main(){
 			    xCentList+i, yCentList+i, areaList+i);
     }
     printf("Centroids calculated.\n");
+
     //write paths from centroid to centroid
     fputs("\t</g>\n", svg);
     fputs("\t<g\n\t\tid=\"layer2\">\n", svg);
     for(i=0; i<entityCount; i++){
-               
+    //for(i=2780; i<2785; i++){
       svg_neighbors(*shapeList[i], NLIST[i], xCentList, yCentList, svg);
     }
     //svg_neighbors(*shapeList[20], NLIST[20], xCentList, yCentList, svg);
     printf("Contiguity paths drawn.\n");
-       
+    /*
     //Free NLIST
     for(i=0; i<entityCount; i++)
       {
@@ -340,8 +339,8 @@ int main(){
       }
     free(NLIST);
     NLIST = NULL;
-
     fclose(gal);
+    */
   }
   
   //write footer
