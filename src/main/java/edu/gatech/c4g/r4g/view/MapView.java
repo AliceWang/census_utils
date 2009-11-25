@@ -8,10 +8,8 @@ import javax.swing.UnsupportedLookAndFeelException;
 
 import org.geotools.data.FeatureSource;
 import org.geotools.factory.CommonFactoryFinder;
-import org.geotools.filter.FilterFactory;
 import org.geotools.map.DefaultMapContext;
 import org.geotools.map.MapContext;
-import org.geotools.renderer.style.Style;
 import org.geotools.styling.StyleFactory;
 import org.geotools.swing.JMapFrame;
 import org.opengis.feature.simple.SimpleFeature;

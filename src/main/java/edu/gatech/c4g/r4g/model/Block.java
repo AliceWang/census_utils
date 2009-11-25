@@ -1,6 +1,5 @@
 package edu.gatech.c4g.r4g.model;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 
 import org.opengis.feature.Property;
@@ -8,7 +7,6 @@ import org.opengis.feature.simple.SimpleFeature;
 
 import com.vividsolutions.jts.geom.MultiPolygon;
 
-import edu.gatech.c4g.r4g.util.Loader;
 import edu.gatech.c4g.r4g.Redistrict;
 
 public class Block implements Comparable<Block> {
