@@ -105,7 +105,7 @@ void svg_header(FILE *svg){
   fputs("\txmlns=\"http://www.w3.org/2000/svg\"\n", svg);
   fputs("\tversion=\"1.0\"\n", svg);
   fprintf(svg, "\twidth=\"%d\"\n", 360*SVG_SCALE);
-  fprintf("\theight=\"%d\"\n", 180*SVG_SCALE);
+  fprintf(svg, "\theight=\"%d\"\n", 180*SVG_SCALE);
   fputs("\tid=\"svg2\">\n", svg);
   fputs("\t<defs\n\t\tid=\"defs1\" />\n", svg);
   fputs("\t<g\n\t\tid=\"layer1\">\n", svg);
