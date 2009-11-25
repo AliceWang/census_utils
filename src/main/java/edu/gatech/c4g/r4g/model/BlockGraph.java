@@ -114,18 +114,17 @@ public class BlockGraph extends Graph {
 
 		});
 
-		Island mainland = islands.get(0);
-
-		System.out.println("\tFinding coastline");
-		HashSet<Block> coastLine = mainland.findBoundaryBlocks();
-
-		System.out.println("\tLinking islands with mainland");
-		for (Island i : islands) {
-			if (i != mainland) {
-				linkIsland(i, coastLine);
+		if (islands.size() > 1) {
+			Island mainland = islands.get(0);
+			System.out.println("\tFinding coastline");
+			HashSet<Block> coastLine = mainland.findBoundaryBlocks();
+			System.out.println("\tLinking islands with mainland");
+			for (Island i : islands) {
+				if (i != mainland) {
+					linkIsland(i, coastLine);
+				}
 			}
 		}
-
 		return islands;
 	}
 
@@ -170,6 +169,13 @@ public class BlockGraph extends Graph {
 		String stat = "";
 
 		for (District d : districts.values()) {
+			double totArea = 0;
+			
+			for (Block b: d.getAllBlocks()){
+				totArea+=b.getArea();
+			}
+			
+			
 			stat += "District "
 					+ d.getDistrictNo()
 					+ ": population "
@@ -177,7 +183,7 @@ public class BlockGraph extends Graph {
 					+ "("
 					+ ((double) d.getPopulation() / (double) this
 							.getPopulation()) * 100 + "%) ("
-					+ d.getAllBlocks().size() + " blocks)\n";
+					+ d.getAllBlocks().size() + " blocks, area= " + totArea +")\n";
 			usedblocks += d.getAllBlocks().size();
 		}
 
