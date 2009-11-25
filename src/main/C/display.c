@@ -268,7 +268,13 @@ int main(){
       return -1;
     }
     fscanf(gal, "%d", &nblocks);
-    printf("GAL block count matches shapefile block count. Proceeding...\n");
+    
+    if(nblocks==entityCount){
+       printf("GAL block count matches shapefile block count. Proceeding...\n");
+    }else{
+      printf("GAL block count does not match. Exiting...\n");
+      exit(EXIT_FAILURE);
+    }
 	  
     NLIST = malloc(nblocks * sizeof(struct neighbor_list));
 	  
@@ -327,7 +333,9 @@ int main(){
     //Free NLIST
     for(i=0; i<entityCount; i++)
       {
-        if(NLIST != NULL && NLIST[i].neighbors!=NULL){
+        printf("i is %d\n", i);
+        printf("NLIST[i]\n");
+        if(NLIST != NULL && NLIST[i].neighbors!=NULL && NLIST[i].num_neighbors > 0){
           free(NLIST[i].neighbors);
           NLIST[i].neighbors = NULL;
         }
