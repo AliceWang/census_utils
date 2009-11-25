@@ -323,12 +323,10 @@ int main(){
     fputs("\t</g>\n", svg);
     fputs("\t<g\n\t\tid=\"layer2\">\n", svg);
     for(i=0; i<entityCount; i++){
-    //for(i=2780; i<2785; i++){
       svg_neighbors(*shapeList[i], NLIST[i], xCentList, yCentList, svg);
     }
     //svg_neighbors(*shapeList[20], NLIST[20], xCentList, yCentList, svg);
     printf("Contiguity paths drawn.\n");
-    /*
     //Free NLIST
     for(i=0; i<entityCount; i++)
       {
@@ -340,7 +338,6 @@ int main(){
     free(NLIST);
     NLIST = NULL;
     fclose(gal);
-    */
   }
   
   //write footer
