@@ -335,10 +335,8 @@ int main(){
       {
         printf("i is %d\n", i);
         printf("NLIST[i]\n");
-        if(NLIST != NULL && NLIST[i].neighbors!=NULL && NLIST[i].num_neighbors > 0){
-          free(NLIST[i].neighbors);
-          NLIST[i].neighbors = NULL;
-        }
+        free(NLIST[i].neighbors);
+        NLIST[i].neighbors = NULL;
       }
     free(NLIST);
     NLIST = NULL;
