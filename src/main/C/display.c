@@ -3,7 +3,7 @@
 #include <string.h>
 #include "shapefil.h"
 #include "neighbors.h"
-#define SVG_SCALE 1000
+#define SVG_SCALE 5000
 /*
   Code to display Census shapefiles.
   Copyright (C) <2009>  <Joshua Justice>
