@@ -193,7 +193,7 @@ int main(){
   double padfMinBound[4];
   double padfMaxBound[4];
   int i;
-  int use_gal = 0;
+  int use_gal = 1;
   int use_dist = 1;
   //For josh
   char sf_name[] = "/home/joshua/Desktop/FultonCoData/Fultoncombinednd.shp";
