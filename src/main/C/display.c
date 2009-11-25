@@ -327,8 +327,10 @@ int main(){
     //Free NLIST
     for(i=0; i<entityCount; i++)
       {
-	free(NLIST[i].neighbors);
-	NLIST[i].neighbors = NULL;
+        if(NLIST != NULL && NLIST[i].neighbors!=NULL){
+          free(NLIST[i].neighbors);
+          NLIST[i].neighbors = NULL;
+        }
       }
     free(NLIST);
     NLIST = NULL;
