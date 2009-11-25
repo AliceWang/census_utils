@@ -327,6 +327,8 @@ int main(){
     }
     //svg_neighbors(*shapeList[20], NLIST[20], xCentList, yCentList, svg);
     printf("Contiguity paths drawn.\n");
+
+    //this is the section that's screwing up
     //Free NLIST
     for(i=0; i<entityCount; i++)
       {
@@ -338,6 +340,7 @@ int main(){
     free(NLIST);
     NLIST = NULL;
     fclose(gal);
+    //end section that's screwing up
   }
   
   //write footer
