@@ -7,7 +7,6 @@ import java.util.Hashtable;
 import java.util.Iterator;
 
 import com.vividsolutions.jts.geom.Geometry;
-import com.vividsolutions.jts.geom.MultiPolygon;
 
 /**
  * Copyright (C) 2009

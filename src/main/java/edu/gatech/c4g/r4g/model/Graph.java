@@ -6,7 +6,6 @@ import java.util.Collections;
 import java.util.Hashtable;
 
 import com.vividsolutions.jts.geom.Coordinate;
-import com.vividsolutions.jts.geom.Point;
 
 public abstract class Graph {
 
