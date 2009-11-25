@@ -3,7 +3,7 @@
 #include <string.h>
 #include "shapefil.h"
 #include "neighbors.h"
-#define SVG_SCALE 5000
+#define SVG_SCALE 1000
 /*
   Code to display Census shapefiles.
   Copyright (C) <2009>  <Joshua Justice>
@@ -83,23 +83,19 @@ void colorArrange(int* array, int n, int nDists, char *distFile){
     printf("Error- could not open district file\n");
     printf("Filename:  %s\n", distFile);	
   }
-  //Sumanth - Debug
   unsigned int min=0xffffff;
   unsigned int max=0x000000;
   unsigned int diff=(min-max)/distarray_size;
-printf("min=%x max=%x distarray_size=%x diff=%x  ",min, max,distarray_size, diff);
   int i;
   //  int arrayLim;
   unsigned int current = max;
   //check array size here
   for(i=0; i<distarray_size; i++){
-printf("current=%x  ", current);
     distArray[i]=current;
     current=current+diff;
   }
   while(fscanf(fp, "%i %i", &blockno, &distno) != EOF){
     array[blockno]=distArray[distno];
-    printf("%xi   ",distArray[distno]);
   }
   free(distArray);
   fclose(fp);
@@ -156,7 +152,7 @@ void svg_neighbors(SHPObject block, struct neighbor_list neighbor_list,
   //for each neighbor to the block, print the path between the centroids
     
   //Sumanth - Debug
-  printf("\n blockid = %d \n", block.nShapeId);
+  //printf("\n blockid = %d \n", block.nShapeId);
  
   int current, i;
   double bx, by, nx, ny;
@@ -200,11 +196,11 @@ int main(){
   int use_gal = 0;
   int use_dist = 1;
   //For josh
-  //char sf_name[] = "/home/josh/Desktop/FultonCoData/Fultoncombinednd.shp";
+  char sf_name[] = "/home/joshua/Desktop/FultonCoData/Fultoncombinednd.shp";
   //for sumanth
   //char sf_name[] = "/home/sumanth/Documents/eDemocracy/Files/Fultoncombinednd.shp";
   //for alice
-  char sf_name[]= "/home/altheacynara/Documents/fultonData/Fultoncombinednd.shp";
+  //char sf_name[]= "/home/altheacynara/Documents/fultonData/Fultoncombinednd.shp";
   //Eventually, this won't be hardcoded
 
   SHPHandle handle = SHPOpen(sf_name, "rb");
@@ -253,7 +249,6 @@ int main(){
   //Call colorArrange:
   int ndists=5;
   int *colorArray = malloc(entityCount*sizeof(int));
-  printf("The filename is %s\n compared to %s\n", dst_filename, gal_filename);
   colorArrange(colorArray,entityCount,ndists, dst_filename);
 
   //write individual polygons
@@ -261,6 +256,7 @@ int main(){
     svg_polygon(*shapeList[i], svg, use_dist, colorArray);
   }
   printf("Polygons all printed.\n");
+
   if(use_gal){
     FILE *gal;
     int block, num_neigh, nblocks, temp_neigh;
