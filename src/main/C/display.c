@@ -247,10 +247,6 @@ int main(){
   //Call colorArrange:
   int ndists=5;
   int *colorArray = malloc(entityCount*sizeof(int));
-<<<<<<< HEAD:src/main/C/display.c
-=======
-  printf("The filename is %s\n compared to %s\n", dst_filename, gal_filename);
->>>>>>> d50e2e2343960fa31c7a5253fd12f550f40fdfe1:src/main/C/display.c
   colorArrange(colorArray,entityCount,ndists, dst_filename);
 
   //write individual polygons
