@@ -27,7 +27,7 @@ public class Redistrict {
 	
 	
 	private static final String USAGE = "[-h] -a <algorithm> -n <number_of_districts> -d <max_deviation> -i <input_file> [-nographics]";
-	private static final String HEADER = "OpenRedistricting - A bunch of algorithms to (fairly?) redistrict Australia (with GeoTools "
+	private static final String HEADER = "OpenRedistricting - A bunch of algorithms to (fairly?) redistrict (with GeoTools "
 			+ GeoTools.getVersion() + ")";
 	private static final String FOOTER = "\nCopyright 2009 - Aaron Ciaghi, Stephen Long, Joshua Justice";
 	private static Options options;
