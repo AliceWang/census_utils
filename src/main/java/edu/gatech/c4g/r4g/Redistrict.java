@@ -89,9 +89,6 @@ public class Redistrict {
 			String galFile = filename.substring(0, filename.length() - 4)
 					+ ".GAL";
 
-			MapView mv = new MapView(source);
-			// mv.showShapefile();
-
 			RedistrictingAlgorithm ra = null;
 
 			if (alg.equals("australia")) {
@@ -111,13 +108,14 @@ public class Redistrict {
 			System.out
 					.println("Redistricting. You can have a coffee while you are waiting");
 			ra.redistrict(ndis, maxDeviation);
+
+			File districtedShapefile = Saver.save(source, ra.getBlockGraph(), filename.substring(0,
+					filename.length() - 4));
 			
 			if (GRAPHICS_ENABLED){
-				//TODO show map view
+				MapView mv = new MapView(districtedShapefile);
+				mv.showShapefile();
 			}
-
-			Saver.save(source, ra.getBlockGraph(), filename.substring(0,
-					filename.length() - 4));
 
 		} else {
 			printUsage(options);

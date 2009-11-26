@@ -16,14 +16,40 @@ import edu.gatech.c4g.r4g.model.District;
 import edu.gatech.c4g.r4g.model.Island;
 import edu.gatech.c4g.r4g.util.Loader;
 
+/**
+ * Generic redistricting algorithm. This is the class that does the actual job
+ * of redistricting. It is abstract, thus it must be extended in order to add
+ * country/state-specific rules.
+ * 
+ * @author aaron
+ * 
+ */
 public abstract class RedistrictingAlgorithm {
 
+	/**
+	 * Number of desired districts
+	 */
 	int ndis;
+	/**
+	 * Ideal population that a district should have
+	 */
 	double idealPopulation;
+	/**
+	 * Minimum allowed population for a district
+	 */
 	double minPopulation;
+	/**
+	 * Maximum allowed population for a district
+	 */
 	double maxPopulation;
 
+	/**
+	 * {@link BlockGraph} containing all the blocks in the shapefile
+	 */
 	BlockGraph bg;
+	/**
+	 * {@link Island}s in the shapefile (including the mainland).
+	 */
 	ArrayList<Island> islands;
 	Loader loader;
 
@@ -42,6 +68,19 @@ public abstract class RedistrictingAlgorithm {
 
 	}
 
+	/**
+	 * This function calls executes the 3 stages of the redistricting algorithm
+	 * sequentially.
+	 * 
+	 * @see #initialExpansion()
+	 * @see #secondaryExpansion()
+	 * @see #populationBalancing()
+	 * 
+	 * @param ndis
+	 *            desired number of districts
+	 * @param maxDeviation
+	 *            max allowed deviation from the ideal population
+	 */
 	public void redistrict(int ndis, double maxDeviation) {
 		// calculate ideal population
 		this.ndis = ndis;
@@ -52,36 +91,26 @@ public abstract class RedistrictingAlgorithm {
 		// stage 1
 		initialExpansion();
 
-		// LOG INFO
-		double totPop = bg.getPopulation();
-
-		int usedblocks = 0;
-
-		// System.out.println("\n=============\n" + "After Stage 1\n"
-		// + "=============\n");
-		// System.out.println(bg.districtStatistics());
-
 		// --------------------------------------
 		// stage2
 		secondaryExpansion();
 
 		// LOG INFO
-		usedblocks = 0;
-
 		System.out.println("\n=============\n" + "After Stage 2\n"
 				+ "=============\n");
 		System.out.println(bg.districtStatistics());
-
-//		for (District d : bg.getAllDistricts()) {
-//			System.out.println("District " + d.getDistrictNo()
-//					+ " compactness: " + d.getCompactness());
-//		}
 
 		// --------------------------------------
 		// stage3
 		// populationBalancing();
 	}
 
+	/**
+	 * First stage of the algorithm. Each district is grown from the most
+	 * densely populated block available up to 80% the minimum allowed size for
+	 * a district. This is supposed to leave some space for the secondary stage
+	 * and limit district choking.
+	 */
 	protected void initialExpansion() {
 		ArrayList<Block> allBlocks = new ArrayList<Block>();
 		allBlocks.addAll(bg.getAllBlocks());
@@ -125,6 +154,10 @@ public abstract class RedistrictingAlgorithm {
 
 	}
 
+	/**
+	 * Second stage of the algorithm. Adds to each district all the closest
+	 * unassigned blocks until the ideal population is reached.
+	 */
 	protected void secondaryExpansion() {
 		ArrayList<Block> unassigned = bg.getUnassigned();
 
@@ -176,11 +209,20 @@ public abstract class RedistrictingAlgorithm {
 
 	}
 
+	/**
+	 * Third stage of the algorithm. Balances the population of the districts
+	 * where necessary.
+	 * 
+	 * @see #finalizeDistricts()
+	 */
 	protected void populationBalancing() {
+		// TODO
 		finalizeDistricts();
 	}
 
-	// First part to stage 3 or stage 2.5 or whatever you want to call it
+	/**
+	 * First part of stage 3.
+	 */
 	protected void finalizeDistricts() {
 		// Get the under-apportioned Districts
 		ArrayList<District> undAppDists = new ArrayList<District>();
@@ -298,9 +340,18 @@ public abstract class RedistrictingAlgorithm {
 		return null;
 	}
 
-	private ArrayList<Block> chooseNeighborsToAdd(int basePop,
+	/**
+	 * Function called by the {@link #initialExpansion()} to choose which blocks
+	 * have to be added to a district.
+	 * 
+	 * @param basePop
+	 * @param upperBound
+	 * @param blocks
+	 * @return
+	 */
+	protected ArrayList<Block> chooseNeighborsToAdd(int basePop,
 			double upperBound, ArrayList<Block> blocks) {
-		// HashSet<Block> blocksToTake = new HashSet<Block>();
+
 		ArrayList<Block> returnList = new ArrayList<Block>();
 		int[] population = new int[blocks.size()];
 		int totalPop = basePop;

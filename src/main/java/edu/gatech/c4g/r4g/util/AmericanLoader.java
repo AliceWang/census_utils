@@ -6,6 +6,11 @@ import org.opengis.feature.simple.SimpleFeatureType;
 
 import edu.gatech.c4g.r4g.model.BlockGraph;
 
+/**
+ * Loader for the US redistricting algorithm.
+ * @author aaron
+ *
+ */
 public class AmericanLoader extends Loader {
 	@Override
 	public BlockGraph load(

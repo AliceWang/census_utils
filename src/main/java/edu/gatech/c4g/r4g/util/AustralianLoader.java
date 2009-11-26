@@ -8,11 +8,16 @@ import org.opengis.feature.simple.SimpleFeatureType;
 
 import edu.gatech.c4g.r4g.model.Block;
 import edu.gatech.c4g.r4g.model.BlockGraph;
-//import edu.gatech.c4g.r4g.model.Island;
 
+/**
+ * Loader for the Australian redistricting algorithm. It takes care of removing
+ * all the blocks that represent natural borders or that are useless for
+ * redistricting (i.e. Water and Shipping)
+ * 
+ * @author aaron
+ * 
+ */
 public class AustralianLoader extends Loader {
-	
-	//private static final String NATURAL_BORDER_WATER = "Water";
 
 	@Override
 	public BlockGraph load(
@@ -24,9 +29,16 @@ public class AustralianLoader extends Loader {
 		return removeNaturalBorders(bg);
 	}
 
+	/**
+	 * Removes all the blocks in the input {@link BlockGraph} that represent
+	 * natural borders.
+	 * 
+	 * @param bg
+	 * @return
+	 */
 	private BlockGraph removeNaturalBorders(BlockGraph bg) {
 		ArrayList<Block> toRemove = new ArrayList<Block>();
-		
+
 		for (Block b : bg.getAllBlocks()) {
 			SimpleFeature f = b.getFeature();
 			String cat = (String) f.getProperty("CATEGORY").getValue();
@@ -35,7 +47,7 @@ public class AustralianLoader extends Loader {
 				toRemove.add(b);
 			}
 		}
-		
+
 		bg.removeAllBlocks(toRemove);
 
 		return bg;

@@ -31,22 +31,48 @@ import edu.gatech.c4g.r4g.Redistrict;
 import edu.gatech.c4g.r4g.model.Block;
 import edu.gatech.c4g.r4g.model.BlockGraph;
 
+/**
+ * Saver utility class that provides the functions to output the result of the
+ * redistricting algorithm to a shapefile and to a DST file.
+ * 
+ * @author aaron
+ * 
+ */
 public class Saver {
 
-	public static void save(
+	/**
+	 * Saves the input {@link BlockGraph} with district information to a
+	 * shapefile and to a DST file.
+	 * 
+	 * @param source the original {@link FeatureSource} from which bg was created
+	 * @param bg
+	 * @param outputFile the name of the output file (without extension)
+	 * 
+	 * @return the file that contains the new shapefile (for display purposes)
+	 */
+	public static File save(
 			FeatureSource<SimpleFeatureType, SimpleFeature> source,
 			BlockGraph bg, String outputFile) {
 		// part 1 - save new shapefile
 		System.out.println("Saving new Shapefile");
-		saveShapefile(source, bg, new File(outputFile + "_"
-				+ bg.getDistrictCount()));
+		
+		File newShapefile = new File(outputFile + "_" + bg.getDistrictCount());	
+		File redistrictedShapefile = saveShapefile(source, bg, newShapefile);
 
 		// part 2 - write which blocks are in which district
 		System.out.println("Saving districting data to " + outputFile + "_" + bg.getDistrictCount() + ".dst");
 		saveDST(bg, new File(outputFile + "_" + bg.getDistrictCount() + ".dst"));
+		return redistrictedShapefile; 
+
 	}
 
-	private static void saveShapefile(
+	/**
+	 * Saves a {@link BlockGraph} to a shapefile, adding district information
+	 * @param source
+	 * @param bg
+	 * @param outFile
+	 */
+	private static File saveShapefile(
 			FeatureSource<SimpleFeatureType, SimpleFeature> source,
 			BlockGraph bg, File outFile) {
 		SimpleFeatureTypeBuilder sftb = new SimpleFeatureTypeBuilder();
@@ -126,6 +152,7 @@ public class Saver {
 			e1.printStackTrace();
 		}
 
+		return newFile;
 	}
 
 	private static void saveDST(BlockGraph bg, File dstFile) {

@@ -5,6 +5,7 @@ import java.util.HashSet;
 import org.opengis.feature.Property;
 import org.opengis.feature.simple.SimpleFeature;
 
+import com.vividsolutions.jts.geom.Coordinate;
 import com.vividsolutions.jts.geom.MultiPolygon;
 
 import edu.gatech.c4g.r4g.Redistrict;
@@ -67,6 +68,10 @@ public class Block implements Comparable<Block> {
 	
 	public SimpleFeature getFeature(){
 		return feature;
+	}
+	
+	public double calculateDistance(Coordinate c){
+		return c.distance(polygon.getCentroid().getCoordinate());
 	}
 
 	public int compareTo(Block other) {
