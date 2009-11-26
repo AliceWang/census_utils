@@ -42,8 +42,8 @@ public class Saver {
 				+ bg.getDistrictCount()));
 
 		// part 2 - write which blocks are in which district
-		System.out.println("Saving districting data to " + outputFile + ".dst");
-		saveDST(bg, new File(outputFile + ".dst"));
+		System.out.println("Saving districting data to " + outputFile + "_" + bg.getDistrictCount() + ".dst");
+		saveDST(bg, new File(outputFile + "_" + bg.getDistrictCount() + ".dst"));
 	}
 
 	private static void saveShapefile(
