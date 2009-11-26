@@ -16,10 +16,18 @@ import org.opengis.feature.simple.SimpleFeatureType;
 import edu.gatech.c4g.r4g.model.Block;
 import edu.gatech.c4g.r4g.model.BlockGraph;
 
+/**
+ * Generic loader. It calls {@link BlockGraph#BlockGraph(FeatureSource)} to
+ * create the graph from a shapefile and reads contiguity information from a GAL
+ * file.
+ * 
+ * @author aaron
+ * 
+ */
 public abstract class Loader {
 
 	public static String POPULATION_FIELD;
-	
+
 	/**
 	 * 
 	 * @param source
@@ -50,6 +58,11 @@ public abstract class Loader {
 
 	}
 
+	/**
+	 * Adds the edges to the input {@link BlockGraph}
+	 * @param bg
+	 * @param filename
+	 */
 	private void parseGal(BlockGraph bg, String filename) {
 		File galFile = new File(filename);
 

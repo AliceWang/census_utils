@@ -16,9 +16,24 @@ import org.opengis.feature.simple.SimpleFeatureType;
 
 import com.vividsolutions.jts.geom.Coordinate;
 
+/**
+ * Main data structure that contains all the blocks in a shapefile. It also
+ * contain a reference to all the districts built from its blocks.
+ * 
+ * @author aaron
+ * 
+ */
 public class BlockGraph extends Graph {
+	/**
+	 * Districts build from blocks in this graph.
+	 */
 	private Hashtable<Integer, District> districts;
 
+	/**
+	 * Builds a graph from an input {@link FeatureSource} (usually a shapefile).
+	 * 
+	 * @param source
+	 */
 	public BlockGraph(FeatureSource<SimpleFeatureType, SimpleFeature> source) {
 		this.blocks = new Hashtable<Integer, Block>();
 		this.districts = new Hashtable<Integer, District>();
@@ -47,6 +62,10 @@ public class BlockGraph extends Graph {
 
 	}
 
+	/**
+	 * Removes a block from this graph and removes all the edges that contain
+	 * the block.
+	 */
 	public void removeBlock(Block b) {
 		for (Block neighbor : b.neighbors) {
 			neighbor.neighbors.remove(b);
@@ -55,18 +74,39 @@ public class BlockGraph extends Graph {
 		blocks.remove(b.getId());
 	}
 
+	/**
+	 * Adds a new district to the districts hashtable {@link #districts}
+	 * 
+	 * @param d
+	 */
 	public void addDistrict(District d) {
 		districts.put(d.getDistrictNo(), d);
 	}
 
+	/**
+	 * Returns the number of districts.
+	 * 
+	 * @return
+	 */
 	public int getDistrictCount() {
 		return districts.size();
 	}
 
+	/**
+	 * Returns a {@link Collection} containing all the districts.
+	 * 
+	 * @return
+	 */
 	public Collection<District> getAllDistricts() {
 		return districts.values();
 	}
 
+	/**
+	 * Returns the district with the input district number.
+	 * 
+	 * @param distNo
+	 * @return
+	 */
 	public District getDistrict(int distNo) {
 		if (distNo == Block.UNASSIGNED) {
 			return null;
@@ -123,6 +163,13 @@ public class BlockGraph extends Graph {
 		return islands;
 	}
 
+	/**
+	 * Recursively adds to an {@link Island} a block and all the blocks
+	 * contained in the connected subgraph that contains the input block.
+	 * 
+	 * @param island
+	 * @param b
+	 */
 	private void addToIsland(HashSet<Block> island, Block b) {
 		if (!island.contains(b) && b.getDistNo() == Block.UNASSIGNED) {
 			island.add(b);
@@ -134,6 +181,16 @@ public class BlockGraph extends Graph {
 		}
 	}
 
+	/**
+	 * Links an island to its geographically closest block on the coastline.
+	 * 
+	 * @param island
+	 *            the island to connect
+	 * @param coastLine
+	 *            a {@link HashSet} containing the blocks on the coast of the
+	 *            area to redistrict that has been previously computed
+	 *            {@link Island#findBoundaryBlocks()}.
+	 */
 	private void linkIsland(Island island, HashSet<Block> coastLine) {
 		Coordinate islandCenter = island.getCenter();
 		Block islandRepresentative = island.getRepresentative();
@@ -141,7 +198,7 @@ public class BlockGraph extends Graph {
 
 		double dist = Double.MAX_VALUE;
 		for (Block b : coastLine) {
-			double newDist = calculateDistance(islandCenter, b);
+			double newDist = b.calculateDistance(islandCenter);
 			if (newDist < dist) {
 				dist = newDist;
 				coastBlock = b;
@@ -165,12 +222,11 @@ public class BlockGraph extends Graph {
 
 		for (District d : districts.values()) {
 			double totArea = 0;
-			
-			for (Block b: d.getAllBlocks()){
-				totArea+=b.getArea();
+
+			for (Block b : d.getAllBlocks()) {
+				totArea += b.getArea();
 			}
-			
-			
+
 			stat += "District "
 					+ d.getDistrictNo()
 					+ ": population "
@@ -178,7 +234,8 @@ public class BlockGraph extends Graph {
 					+ "("
 					+ ((double) d.getPopulation() / (double) this
 							.getPopulation()) * 100 + "%) ("
-					+ d.getAllBlocks().size() + " blocks, area= " + totArea +")\n";
+					+ d.getAllBlocks().size() + " blocks, area= " + totArea
+					+ ")\n";
 			usedblocks += d.getAllBlocks().size();
 		}
 

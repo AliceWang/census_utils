@@ -6,6 +6,13 @@ import org.opengis.feature.simple.SimpleFeatureType;
 
 import edu.gatech.c4g.r4g.util.AmericanLoader;
 
+/**
+ * Class that implements the redistricting algorithm for the US. Currently it
+ * simply uses the generic algorithm.
+ * 
+ * @author aaron
+ * 
+ */
 public class AmericanRedistrictingAlgorithm extends RedistrictingAlgorithm {
 
 	public AmericanRedistrictingAlgorithm(AmericanLoader loader,
