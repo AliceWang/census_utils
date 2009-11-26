@@ -2,11 +2,70 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>edu.gatech.c4g</groupId>
-	<artifactId>r4g</artifactId>
+	<artifactId>eRedistricting</artifactId>
 	<packaging>jar</packaging>
 	<version>1.0-SNAPSHOT</version>
 	<name>eRedistricting</name>
 	<url>http://maven.apache.org</url>
+	<description>eRedistricting is an open source framework for
+		redistricting initially developed during the Fall 2009 Computing for
+		Good class
+		at Georgia Tech, in collaboration with the Georgia Tech
+		eDemocracy group.
+		It provides a generic algorithm that can be
+		extended
+		with rules and
+		operations specific to the target area.
+	</description>
+	<licenses>
+		<license>
+			<name>GNU General Public License</name>
+			<url>http://www.gnu.org/licenses/gpl.html</url>
+			<distribution>manual</distribution>
+			<comments>The GNU General Public License is a free, copyleft license
+				for software and other kinds of works.</comments>
+		</license>
+	</licenses>
+	<developers>
+		<developer>
+			<id>aaron</id>
+			<name>Aaron Ciaghi</name>
+			<email>aaron.ciaghi@gatech.edu</email>
+			<organization>Georgia Institute of Technology</organization>
+			<organizationUrl>http://cc.gatech.edu</organizationUrl>
+			<roles>
+				<role>architect</role>
+				<role>developer</role>
+			</roles>
+			<timezone>-6</timezone>
+		</developer>
+		<developer>
+			<id>lalong</id>
+			<name>Stephen Long</name>
+			<email>lalong13@gatech.edu</email>
+			<organization>Georgia Institute of Technology</organization>
+			<organizationUrl>http://cc.gatech.edu</organizationUrl>
+			<roles>
+				<role>architect</role>
+				<role>developer</role>
+			</roles>
+			<timezone>-6</timezone>
+		</developer>
+		<developer>
+			<id>joshua</id>
+			<name>Joshua Justice</name>
+			<email>joshua.justice@gatech.edu</email>
+			<organization>Georgia Institute of Technology</organization>
+			<organizationUrl>http://cc.gatech.edu</organizationUrl>
+			<roles>
+				<role>architect</role>
+				<role>developer</role>
+			</roles>
+			<timezone>-6</timezone>
+		</developer>
+	</developers>
+
+	<!-- IMPORTANT STUFF STARTS HERE -->
 
 	<properties>
 		<geotools.version>2.6.0</geotools.version>
