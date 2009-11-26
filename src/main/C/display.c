@@ -3,7 +3,7 @@
 #include <string.h>
 #include "shapefil.h"
 #include "neighbors.h"
-#define SVG_SCALE 100
+#define SVG_SCALE 5000
 /*
   Code to display Census shapefiles.
   Copyright (C) <2009>  <Joshua Justice>
@@ -198,7 +198,7 @@ int main(){
   //for sumanth
   //char sf_name[] = "/home/sumanth/Documents/eDemocracy/Files/Fultoncombinednd.shp";
   //for alice
-  //char sf_name[]= "/home/altheacynara/Documents/fultonData/Fultoncombinednd.shp";
+  char sf_name[]= "/home/altheacynara/Documents/fultonData/Fultoncombinednd.shp";
   //Eventually, this won't be hardcoded
 
   SHPHandle handle = SHPOpen(sf_name, "rb");
@@ -247,6 +247,10 @@ int main(){
   //Call colorArrange:
   int ndists=5;
   int *colorArray = malloc(entityCount*sizeof(int));
+<<<<<<< HEAD:src/main/C/display.c
+=======
+  printf("The filename is %s\n compared to %s\n", dst_filename, gal_filename);
+>>>>>>> d50e2e2343960fa31c7a5253fd12f550f40fdfe1:src/main/C/display.c
   colorArrange(colorArray,entityCount,ndists, dst_filename);
 
   //write individual polygons
