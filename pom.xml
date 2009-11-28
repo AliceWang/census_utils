@@ -145,6 +145,33 @@
 					</execution>
 				</executions>
 			</plugin>
+			<!-- Handles the copying of the dependencies -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>copy-dependencies</id>
+						<phase>package</phase>
+						<goals>
+							<goal>copy-dependencies</goal>
+						</goals>
+						<configuration>
+							<excludeGroupIds>vp,junit</excludeGroupIds>
+							<stripVersion>true</stripVersion>
+							<outputDirectory>${project.build.directory}/lib</outputDirectory>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>exec-maven-plugin</artifactId>
+				<version>1.1.1</version>
+				<configuration>
+				<mainClass>edu.gatech.c4g.r4g.Redistrict</mainClass>
+				</configuration>
+			</plugin>
 		</plugins>
 		<extensions>
 		</extensions>
