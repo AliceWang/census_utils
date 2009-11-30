@@ -79,7 +79,8 @@ void colorArrange(int* array, int n, int nDists, char *distFile){
   fp = fopen(distFile, "r");
   if(fp==NULL){
     printf("Error- could not open district file\n");
-    printf("Filename:  %s\n", distFile);	
+    printf("Filename:  %s\n", distFile);
+	exit(-1);
   }
   unsigned int min=0xffffff;
   unsigned int max=0x000000;
