@@ -194,7 +194,7 @@ int main(){
   int use_gal = 0;
   int use_dist = 1;
   //For josh
-  char sf_name[] = "/home/joshua/Desktop/FultonCoData/Fultoncombinednd.shp";
+  char sf_name[] = "/home/joshua/FultonCoData/Fultoncombinednd.shp";
   //for sumanth
   //char sf_name[] = "/home/sumanth/Documents/eDemocracy/Files/Fultoncombinednd.shp";
   //for alice
