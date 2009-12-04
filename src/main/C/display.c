@@ -139,7 +139,7 @@ void svg_polygon(SHPObject block, FILE *svg, int use_dist, int* colorArray){
   if(use_dist){
     fprintf(svg,"\t\t\tstyle=\"fill:#%x;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1\"/>", colorArray[block.nShapeId]);
   }else{
-    fprintf(svg,"\t\t\tstyle=\"fill:#%x;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1\"/>", colorArray[block.nShapeId]);
+    fprintf(svg,"\t\t\tstyle=\"fill:#ffffff;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1\"/>");
   }
   return;
 }
