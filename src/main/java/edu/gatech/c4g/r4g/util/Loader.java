@@ -122,10 +122,9 @@ public abstract class Loader {
 					// System.out.println("Adding " + neighbor_id +
 					// " to the neighbors of " + current_block_id);
 					
-					if(currentBlock!=null && currentBlock.neighbors!=null){
-						currentBlock.neighbors.add(bg.getBlock(neighbor_id));
-						bg.getBlock(neighbor_id).neighbors.add(currentBlock);
-					}
+					currentBlock.neighbors.add(bg.getBlock(neighbor_id));
+					bg.getBlock(neighbor_id).neighbors.add(currentBlock);
+
 				}
 			}
 
