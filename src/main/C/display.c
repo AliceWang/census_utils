@@ -94,7 +94,7 @@ void colorArrange(int* array, int n, int nDists, char *distFile){
     current=current+diff;
   }
   while(fscanf(fp, "%i %i", &blockno, &distno) != EOF){
-    array[blockno-1]=distArray[distno];
+    array[blockno]=distArray[distno];
   }
   free(distArray);
   fclose(fp);
