@@ -350,7 +350,7 @@ void Output_To_GAL()
   for(i=0;i<block_count;i++)
   {
     int num_neighbors = 0;
-    sprintf(ego_label, "%i", i);
+    sprintf(ego_label, "%i", i+1);
     strcat(ego_label, " ");
  
     /* We do not know the neighbor count of a vertex here; have to iterate through every
@@ -362,7 +362,7 @@ void Output_To_GAL()
     while(temp != NULL)
     {
       num_neighbors++;
-      sprintf(temp_str, "%i \0", temp->index);
+      sprintf(temp_str, "%i \0", (temp->index)+1);
       strcat(n_list, temp_str);
       temp = temp->next;
     }
