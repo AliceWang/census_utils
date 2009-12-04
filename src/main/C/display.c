@@ -79,7 +79,8 @@ void colorArrange(int* array, int n, int nDists, char *distFile){
   fp = fopen(distFile, "r");
   if(fp==NULL){
     printf("Error- could not open district file\n");
-    printf("Filename:  %s\n", distFile);	
+    printf("Filename:  %s\n", distFile);
+	exit(-1);
   }
   unsigned int min=0xffffff;
   unsigned int max=0x000000;
@@ -191,10 +192,10 @@ int main(){
   double padfMinBound[4];
   double padfMaxBound[4];
   int i;
-  int use_gal = 1;
+  int use_gal = 0;
   int use_dist = 1;
   //For josh
-  char sf_name[] = "/home/joshua/Desktop/FultonCoData/Fultoncombinednd.shp";
+  char sf_name[] = "/home/joshua/FultonCoData/Fultoncombinednd.shp";
   //for sumanth
   //char sf_name[] = "/home/sumanth/Documents/eDemocracy/Files/Fultoncombinednd.shp";
   //for alice
