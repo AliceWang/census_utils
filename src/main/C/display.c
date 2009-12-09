@@ -6,7 +6,7 @@
 #define SVG_SCALE 5000
 /*
   Code to display Census shapefiles.
-  Copyright (C) <2009>  <Joshua Justice>
+  Copyright (C) <2009>  <Joshua Justice, Alice Wang>
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
