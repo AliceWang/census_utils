@@ -1,0 +1,14 @@
+This redistricting program and census utilities are
+
+Copyright (C) 2009
+Joshua Justice, Sumanth Narendra, Alice Wang, Aaron Ciaghi, Stephen Long
+Licensed under the GNU GPL.
+
+To use this program, you need shapefiles with population data.
+If your shapefiles do not have population data (as in the USA)
+you want a program like census_merge, which is available here:
+http://github.com/JoshJGT/census_merge
+
+(Note that census_merge only works on USA-style census popfile/shapefile data.
+If your data is in another format, you will need to modify the merger program.)
+
