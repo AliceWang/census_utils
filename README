@@ -2,7 +2,7 @@ This redistricting program and census utilities are
 
 Copyright (C) 2009
 Joshua Justice, Sumanth Narendra, Alice Wang, Aaron Ciaghi, Stephen Long
-Licensed under the GNU GPL.
+Licensed under the GNU GPL, version 2, or at your option any later version.
 
 To use this program, you need shapefiles with population data.
 If your shapefiles do not have population data (as in the USA)
