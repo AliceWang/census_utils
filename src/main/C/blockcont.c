@@ -1,6 +1,6 @@
 /*
 * Contiguity list generator for Census shapefiles
-* Copyright (C) <2009> <Joshua Justice, Sumanth Narendra>
+* Copyright (C) <2009> <Joshua Justice, Sumanth Narendra, Alice Wang>
 *
 * This program is free software; you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
