@@ -12,3 +12,63 @@ http://github.com/JoshJGT/census_merge
 (Note that census_merge only works on USA-style census popfile/shapefile data.
 If your data is in another format, you will need to modify the merger program.)
 
+In order to compile the C portions of this program,
+you will need to do the following:
+
+cd src/main/C/shapelib-1.2.10
+make
+cd ..
+make
+
+In order to compile the java portions of this program, you will need Maven.
+http://maven.apache.org/
+Follow install instructions there.
+
+Once maven is installed, cd to the root of the census_utils folder
+(ls should show you pom.xml)
+
+Use mvn compile and mvn install. Once this is done,
+
+mvn exec:java -Dexec.args="-h"
+
+will show the help screen.
+The -Dexec.args="" portion of that command is where arguments to the program go.
+
+If all this has worked thus far, you're ready to redistrict.
+
+The first thing to do is generate contiguity.
+Right now, there is no command line parsing for the C programs.
+
+Edit contig.c to point sf_name[] to the file path.
+Re-do make in its folder, then run ./contig.
+Once contiguity lists are made, you may wish to view them.
+
+In display.c, point sf_name[] to the shapefile.
+Set use_dist to 0, and use_gal to 1.
+Re-make it, then run ./display.
+This produces a .svg file.
+(This functionality is currently buggy.)
+
+Alternatively, you can generate a contiguity list using another software package.
+In R,
+install.package('BARD')
+fulton.map <- importBardShape(file.path("/home/data/Fulton"))
+exportBardShape(file.path("/home/data/newFulton"))
+will write a newFulton.GAL file.
+
+Either way, running the redistricting program is possible at this point.
+Note that use of the fast contiguity program is not recommended right now.
+The loader is somewhat buggy and will not proceed correctly with some GAL files.
+Unfortunately, as long as this bug exists, redistricting a state is not feasible.
+(poly2nb runs in O(n^2) time which takes far too long on 200,000+ blocks!)
+
+NOTES:
+
+inkscape -D -e viewable.png WayTooLarge.svg
+will give you a PNG from your SVG file.
+man inkscape to get more options, including scales.
+The display code scales up by 5000 by default.
+#define SVG_SCALE 1 if you wish to do all scaling in inkscape.
+
+export $MAVEN_OPTS -Xmx4g
+(or whatever size of your choice) if the redistrict program runs out of memory.
